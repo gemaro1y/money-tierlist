@@ -14,28 +14,43 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('money-tierlist:theme');
+        var theme = saved === 'dark' || saved === 'light'
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (error) { /* тема по умолчанию — светлая */ }
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="topbar">
     <div class="wrap topbar-inner">
       <div class="brand">
-        <img src="avatar.jpg" alt="Аватар автора" class="brand-avatar" width="40" height="40">
+        <img src="cover.jpg" alt="Обложка: что бы я сделал за..." class="brand-photo" width="460" height="616">
         <div class="brand-text">
           <h1>Что бы я сделал за...</h1>
-          <p>тир-лист · 100 заданий · 8 тиров</p>
+          <p class="brand-sub">тир-лист · 100 испытаний · 8 тиров</p>
+          <p class="brand-note">Растащи задания по суммам: от «за бесплатно бы ебанул» до «ни за какие деньги».</p>
         </div>
       </div>
 
-      <div class="stats">
-        <div class="stat">
-          <span class="stat-label">разложено</span>
-          <strong class="stat-value" id="sortedCount">0 / 100</strong>
+      <div class="topbar-side">
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-label">разложено</span>
+            <strong class="stat-value" id="sortedCount">0 / 100</strong>
+          </div>
+          <div class="stat">
+            <span class="stat-label">сумма</span>
+            <strong class="stat-value stat-value--money" id="moneyTotal">0 ₽</strong>
+          </div>
         </div>
-        <div class="stat">
-          <span class="stat-label">сумма</span>
-          <strong class="stat-value stat-value--money" id="moneyTotal">0 ₽</strong>
-        </div>
+        <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false">Тема: светлая</button>
       </div>
     </div>
 

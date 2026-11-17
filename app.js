@@ -2,6 +2,7 @@
   'use strict';
 
   const STORAGE_KEY = 'money-tierlist:v2';
+  const THEME_KEY = 'money-tierlist:theme';
   const $ = (sel, root) => (root || document).querySelector(sel);
   const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
 
@@ -72,6 +73,35 @@
 
   function formatMoney(value) {
     return new Intl.NumberFormat('ru-RU').format(value) + ' ₽';
+  }
+
+  /* ---------- тема ---------- */
+
+  function currentTheme() {
+    return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme, persist) {
+    const isDark = theme === 'dark';
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+
+    const button = $('#themeToggle');
+    if (button) {
+      button.textContent = isDark ? 'Тема: тёмная' : 'Тема: светлая';
+      button.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      button.title = isDark ? 'Включить светлую тему' : 'Включить тёмную тему';
+    }
+
+    const meta = $('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', isDark ? '#0f0f0f' : '#e8e8e8');
+
+    if (persist) {
+      try { localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light'); } catch (error) { /* не сохранилось — не страшно */ }
+    }
+  }
+
+  function toggleTheme() {
+    applyTheme(currentTheme() === 'dark' ? 'light' : 'dark', true);
   }
 
   /* ---------- разметка ---------- */
@@ -481,8 +511,9 @@
 
     try {
       if (document.fonts && document.fonts.ready) await document.fonts.ready;
+      const themedBackground = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
       const canvas = await window.html2canvas(capture, {
-        backgroundColor: '#e8e8e8',
+        backgroundColor: themedBackground || '#e8e8e8',
         scale: Math.min(3, window.devicePixelRatio > 1 ? 2 : 2),
         useCORS: true,
         logging: false,
@@ -519,6 +550,7 @@
     $('#randomBtn').addEventListener('click', randomPick);
     $('#resetBtn').addEventListener('click', resetAll);
     $('#exportBtn').addEventListener('click', exportPng);
+    $('#themeToggle').addEventListener('click', toggleTheme);
     $('#clearSelection').addEventListener('click', () => {
       selectedId = null;
       render();
@@ -534,6 +566,7 @@
   }
 
   function init() {
+    applyTheme(currentTheme(), false);
     buildChips();
     buildTiers();
     buildBank();
