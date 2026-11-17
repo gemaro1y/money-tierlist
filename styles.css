@@ -52,7 +52,6 @@ input {
   padding: 0 16px;
 }
 
-/* ---------- верхняя панель ---------- */
 
 .topbar {
   background: var(--surface);
@@ -199,7 +198,6 @@ input {
   transition: width 0.28s ease;
 }
 
-/* ---------- панель управления ---------- */
 
 .controls {
   position: sticky;
@@ -299,7 +297,6 @@ input {
   background: transparent;
 }
 
-/* ---------- банк ---------- */
 
 .main {
   padding-top: 16px;
@@ -388,7 +385,6 @@ input {
   display: block;
 }
 
-/* ---------- доска ---------- */
 
 .board {
   margin-top: 18px;
@@ -524,7 +520,6 @@ body.has-selection .tier-label {
   outline-offset: -2px;
 }
 
-/* ---------- задания ---------- */
 
 .chip {
   display: inline-flex;
@@ -613,7 +608,6 @@ body.dragging * {
   100% { opacity: 1; }
 }
 
-/* ---------- подсказка и подвал ---------- */
 
 .hint {
   margin: 12px 0 0;
@@ -650,7 +644,6 @@ body.dragging * {
   background: #a6a6a6;
 }
 
-/* ---------- выбранное задание ---------- */
 
 .selection-bar {
   position: fixed;
@@ -761,7 +754,6 @@ body.has-selection .toast {
   text-align: center;
 }
 
-/* ---------- скроллбар ---------- */
 
 .bank-list::-webkit-scrollbar {
   width: 8px;
@@ -780,7 +772,6 @@ body.has-selection .toast {
   background: #aeaeae;
 }
 
-/* ---------- тёмная тема ---------- */
 
 html[data-theme="dark"] {
   color-scheme: dark;
@@ -942,7 +933,6 @@ html[data-theme="dark"] .noscript {
   color: #ffb6aa;
 }
 
-/* ---------- адаптив ---------- */
 
 @media (max-width: 860px) {
   .controls-inner {
@@ -1164,7 +1154,6 @@ html[data-theme="dark"] .noscript {
   }
 }
 
-/* ---------- печать ---------- */
 
 @media print {
   body {
@@ -1209,7 +1198,6 @@ html[data-theme="dark"] .noscript {
   }
 }
 
-/* ---------- экспорт ---------- */
 
 body.capturing .tier-zone.is-empty::after {
   color: #666666;

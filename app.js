@@ -20,7 +20,6 @@
   let toastTimer = 0;
   let rouletteTimer = 0;
 
-  /* ---------- состояние ---------- */
 
   function emptyState() {
     const next = { bank: ITEMS.map(item => item.id) };
@@ -61,7 +60,7 @@
   function saveState() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ v: 1, zones: state }));
-    } catch (error) { /* приватный режим — просто не сохраняем */ }
+    } catch (error) {}
   }
 
   function zoneOf(id) {
@@ -75,7 +74,6 @@
     return new Intl.NumberFormat('ru-RU').format(value) + ' ₽';
   }
 
-  /* ---------- тема ---------- */
 
   function currentTheme() {
     return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
@@ -96,7 +94,7 @@
     if (meta) meta.setAttribute('content', isDark ? '#0f0f0f' : '#e8e8e8');
 
     if (persist) {
-      try { localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light'); } catch (error) { /* не сохранилось — не страшно */ }
+      try { localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light'); } catch (error) {}
     }
   }
 
@@ -104,7 +102,6 @@
     applyTheme(currentTheme() === 'dark' ? 'light' : 'dark', true);
   }
 
-  /* ---------- разметка ---------- */
 
   function buildChips() {
     ITEMS.forEach(item => {
@@ -192,7 +189,6 @@
     zoneEls.set('bank', bank);
   }
 
-  /* ---------- рендер ---------- */
 
   function render() {
     zoneKeys.forEach(key => {
@@ -267,7 +263,6 @@
     window.setTimeout(() => chip.classList.remove('is-placed'), 520);
   }
 
-  /* ---------- действия ---------- */
 
   function handleChipClick(id) {
     if (Date.now() < suppressClickUntil) return;
@@ -378,7 +373,6 @@
     spin();
   }
 
-  /* ---------- поиск ---------- */
 
   function applySearch() {
     const query = $('#search').value.trim().toLowerCase();
@@ -396,7 +390,6 @@
     $('#searchEmpty').classList.toggle('is-visible', query !== '' && visible === 0);
   }
 
-  /* ---------- перетаскивание мышью / пером ---------- */
 
   function onPointerDown(event) {
     if (event.pointerType === 'touch' || event.button !== 0) return;
@@ -494,7 +487,6 @@
     drag = null;
   }
 
-  /* ---------- PNG и печать ---------- */
 
   async function exportPng() {
     const capture = $('#capture');
@@ -534,7 +526,6 @@
     }
   }
 
-  /* ---------- утилиты ---------- */
 
   function toast(message) {
     const el = $('#toast');
