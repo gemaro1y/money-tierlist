@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Что бы я сделал за... — тир-лист</title>
+  <meta name="description" content="Тир-лист на 100 бытовых заданий: растащи по суммам от «за бесплатно» до «ни за какие деньги». Сохраняется автоматически.">
+  <meta name="theme-color" content="#e8e8e8">
+  <meta property="og:title" content="Что бы я сделал за... — тир-лист">
+  <meta property="og:description" content="100 заданий, 8 тиров. Выбор, драг, экспорт в PNG.">
+  <meta property="og:image" content="og.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="avatar.jpg" type="image/jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">
+        <img src="avatar.jpg" alt="Аватар автора" class="brand-avatar" width="40" height="40">
+        <div class="brand-text">
+          <h1>Что бы я сделал за...</h1>
+          <p>тир-лист · 100 заданий · 8 тиров</p>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-label">разложено</span>
+          <strong class="stat-value" id="sortedCount">0 / 100</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">сумма</span>
+          <strong class="stat-value stat-value--money" id="moneyTotal">0 ₽</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="wrap controls-inner">
+      <input type="search" class="search-input" id="search" placeholder="Поиск по банку" autocomplete="off" spellcheck="false" aria-label="Поиск по банку заданий">
+      <div class="controls-actions">
+        <button type="button" class="btn" id="randomBtn">Случайное</button>
+        <button type="button" class="btn" id="shuffleBtn">Перемешать</button>
+        <button type="button" class="btn" id="resetBtn">Сброс</button>
+        <button type="button" class="btn btn--accent" id="exportBtn">Скачать PNG</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap main">
+    <section class="bank-panel" aria-labelledby="bankTitle">
+      <div class="bank-head">
+        <div>
+          <h2 id="bankTitle">Банк заданий</h2>
+          <p class="bank-meta" id="bankMeta">100 заданий ждут оценки</p>
+        </div>
+        <span class="bank-badge" id="bankCount">100 шт</span>
+      </div>
+      <div class="bank-list" id="bank" data-drop="bank" tabindex="0" role="button" aria-label="Банк заданий. Положить выбранное задание обратно в банк"></div>
+      <p class="search-empty" id="searchEmpty">По этому запросу в банке ничего нет.</p>
+    </section>
+
+    <section class="board" id="capture" aria-labelledby="boardTitle">
+      <div class="board-head">
+        <div>
+          <h2 id="boardTitle">Тир-лист</h2>
+          <p class="board-meta"><span id="totalItems">100 заданий</span> · <span id="captureDate"></span></p>
+        </div>
+        <span class="board-progress" id="progressLabel">0%</span>
+      </div>
+      <div class="tiers" id="tiers"></div>
+    </section>
+
+    <p class="hint">
+      Тапни задание, затем тир — или перетащи мышью. Прогресс сохраняется в браузере.
+      <span>Список шуточный: не повторяй ничего из этого за деньги.</span>
+    </p>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <span>100 заданий · 8 тиров</span>
+      <span class="footer-dot" aria-hidden="true"></span>
+      <span>прогресс хранится только в твоём браузере</span>
+    </div>
+  </footer>
+
+  <div class="selection-bar" id="selectionBar" aria-hidden="true">
+    <div class="selection-inner">
+      <div class="selection-info">
+        <span class="selection-label">выбрано</span>
+        <span class="selection-text" id="selectionText"></span>
+      </div>
+      <div class="selection-actions">
+        <span class="selection-hint">тапни тир, чтобы положить</span>
+        <button type="button" class="btn btn--ghost" id="clearSelection">Отмена</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <div class="noscript">Для тир-листа нужен JavaScript. Включи его и обнови страницу.</div>
+  </noscript>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
